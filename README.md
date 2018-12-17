@@ -195,4 +195,4 @@ To release a new version, update the version number in `version.rb`, and then ru
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/iaintshine/ruby-rails-tracer. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/signalfx/ruby-rails-tracer. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
