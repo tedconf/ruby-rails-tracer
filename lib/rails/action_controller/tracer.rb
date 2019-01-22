@@ -30,12 +30,12 @@ module ActionController
         rack_span = Rails::Tracer::SpanHelpers.rack_span(payload)
         Rails::Tracer::Defer.add_parent(id, rack_span)
 
-        path = payload.fetch(:path)
-        name = "#{payload.fetch(:controller)}##{payload.fetch(:action)} #{event} #{path}"
+        path = payload.fetch(:path, 'unknown')
+        name = "#{payload.fetch(:controller, 'unknown')}##{payload.fetch(:action, 'unknown')} #{event} #{path}"
         tags = {
           'component' => COMPONENT,
           'span.kind' => 'client',
-          'http.method' => payload.fetch(:method),
+          'http.method' => payload.fetch(:method, 'unknown'),
           'http.path' => path,
         }
 
@@ -62,16 +62,16 @@ module ActionController
       def process_action(tracer: OpenTracing.global_tracer, active_span: nil, args: {})
         event, start, finish, id, payload = *args
 
-        path = payload.fetch(:path)
-        name = "#{payload.fetch(:controller)}##{payload.fetch(:action)} #{path}"
+        path = payload.fetch(:path, 'unknown')
+        name = "#{payload.fetch(:controller, 'unknown')}##{payload.fetch(:action, 'unknown')} #{path}"
         tags = {
           'component' => COMPONENT,
           'span.kind' => 'client',
-          'http.method' => payload.fetch(:method),
-          'http.status_code' => payload.fetch(:status),
+          'http.method' => payload.fetch(:method, 'unknown'),
+          'http.status_code' => payload.fetch(:status, 'unknown'),
           'http.path' => path,
-          'view.runtime' => payload.fetch(:view_runtime),
-          'db.runtime' => payload.fetch(:db_runtime),
+          'view.runtime' => payload.fetch(:view_runtime, 'unknown'),
+          'db.runtime' => payload.fetch(:db_runtime, 'unknown'),
         }
 
         if !Rails::Tracer::Defer.enabled

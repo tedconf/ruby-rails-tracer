@@ -31,8 +31,8 @@ module ActionView
         tags = {
           'component' => COMPONENT,
           'span.kind' => 'client',
-          'template_path' => payload.fetch(:identifier),
-          'layout' => payload.fetch(:layout),
+          'template_path' => payload.fetch(:identifier, 'unknown'),
+          'layout' => payload.fetch(:layout, 'unknown'),
         }
 
         handle_notification(tracer: tracer,
@@ -50,7 +50,7 @@ module ActionView
         tags = {
           'component' => COMPONENT,
           'span.kind' => 'client',
-          'template_path' => payload.fetch(:identifier),
+          'template_path' => payload.fetch(:identifier, 'unknown'),
         }
 
         handle_notification(tracer: tracer,
@@ -68,8 +68,8 @@ module ActionView
         tags = {
           'component' => COMPONENT,
           'span.kind' => 'client',
-          'template_path' => payload.fetch(:identifier),
-          'collection_size' => payload.fetch(:count),
+          'template_path' => payload.fetch(:identifier, 'unknown'),
+          'collection_size' => payload.fetch(:count, 'unknown'),
         }
 
         handle_notification(tracer: tracer,
