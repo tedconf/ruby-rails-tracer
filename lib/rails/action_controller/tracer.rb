@@ -45,7 +45,7 @@ module ActionController
                                    start_time: start,
                                    tags: tags)
 
-          span.finish(end_time: finish)
+          span.finish(end_time: finish) if span
         else
           spaninfo = {
             'event' => event,
@@ -81,7 +81,7 @@ module ActionController
                                    start_time: start,
                                    tags: tags)
 
-          span.finish(end_time: finish)
+          span.finish(end_time: finish) if span
         else
           # defer the spans if full_trace is configured
           spaninfo = {

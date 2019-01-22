@@ -69,7 +69,7 @@ module Rails
                                      start_time: spaninfo['start'],
                                      tags: spaninfo['tags'])
 
-            span.finish(end_time: spaninfo['finish'])
+            span.finish(end_time: spaninfo['finish']) if span
           end
         end
       end

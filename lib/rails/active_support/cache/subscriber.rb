@@ -26,7 +26,7 @@ module ActiveSupport
             Rails::Tracer::SpanHelpers.set_error(span, payload[:exception_object] || payload[:exception])
           end
 
-          span.finish(end_time: finish)
+          span.finish(end_time: finish) if span
         end
 
         def start(name, _, payload)
@@ -54,7 +54,7 @@ module ActiveSupport
             Rails::Tracer::SpanHelpers.set_error(span, payload[:exception_object] || payload[:exception])
           end
 
-          span.finish
+          span.finish if span
         end
       end
     end

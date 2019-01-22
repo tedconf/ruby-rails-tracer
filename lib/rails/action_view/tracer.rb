@@ -88,7 +88,7 @@ module ActionView
                                    start_time: start,
                                    tags: tags)
 
-          span.finish(end_time: finish)
+          span.finish(end_time: finish) if span
         else
           spaninfo = {
             'event' => name,

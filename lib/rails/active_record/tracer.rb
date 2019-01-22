@@ -26,16 +26,16 @@ module ActiveRecord
         event, start, finish, id, payload = *args
 
         connection_config = ::ActiveRecord::Base.connection_config
-        name = payload.fetch(:name)
+        name = payload.fetch(:name, 'unknown')
         tags = {
           'component' => 'ActiveRecord',
           'span.kind' => 'client',
           'db.user' => connection_config.fetch(:username, 'unknown'),
-          'db.instance' => connection_config.fetch(:database),
-          'db.vendor' => connection_config.fetch(:adapter),
+          'db.instance' => connection_config.fetch(:database, 'unknown'),
+          'db.vendor' => connection_config.fetch(:adapter, 'unknown'),
           'db.connection_id' => payload.fetch(:connection_id, 'unknown'),
           'db.cached' => payload.fetch(:cached, false),
-          'db.statement' => payload.fetch(:sql),
+          'db.statement' => payload.fetch(:sql, 'unknown'),
           'db.type' => 'sql'
         }
 
@@ -49,7 +49,7 @@ module ActiveRecord
             Rails::Tracer::SpanHelpers.set_error(span, payload[:exception_object] || payload[:exception])
           end
 
-          span.finish(end_time: finish)
+          span.finish(end_time: finish) if span
         else
           spaninfo = {
             'event' => event,
@@ -75,11 +75,11 @@ module ActiveRecord
                                   'component' => 'ActiveRecord',
                                   'span.kind' => 'client',
                                   'db.user' => connection_config.fetch(:username, 'unknown'),
-                                  'db.instance' => connection_config.fetch(:database),
-                                  'db.vendor' => connection_config.fetch(:adapter),
+                                  'db.instance' => connection_config.fetch(:database, 'unknown'),
+                                  'db.vendor' => connection_config.fetch(:adapter, 'unknown'),
                                   'db.connection_id' => fields.fetch(:connection_id, 'unknown'),
                                   'db.cached' => fields.fetch(:cached, false),
-                                  'db.statement' => fields.fetch(:sql),
+                                  'db.statement' => fields.fetch(:sql, 'unknown'),
                                   'db.type' => 'sql'
                                  })
         span
