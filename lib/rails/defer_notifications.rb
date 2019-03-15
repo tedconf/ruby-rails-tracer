@@ -16,7 +16,9 @@ module Rails
         end
 
         def add_parent(id, span)
-          @parent_spans[id] = span
+          unless span.nil? or @parent_spans.nil?
+            @parent_spans[id] = span
+          end
         end
 
         def defer_span(id:, spaninfo:, tracer: OpenTracing.global_tracer)
